@@ -40,27 +40,27 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/propel/dashboard",
       icon: IconDashboard,
     },
     {
       title: "Lifecycle",
-      url: "#",
+      url: "/propel/lifecycle",
       icon: IconListDetails,
     },
     {
       title: "Analytics",
-      url: "#",
+      url: "/propel/analytics",
       icon: IconChartBar,
     },
     {
       title: "Projects",
-      url: "#",
+      url: "/propel/projects",
       icon: IconFolder,
     },
     {
       title: "Team",
-      url: "#",
+      url: "/propel/team",
       icon: IconUsers,
     },
   ],

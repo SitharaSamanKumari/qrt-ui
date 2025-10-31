@@ -21,7 +21,7 @@ function SignupPage() {
     localStorage.setItem("auth", "true")
 
     // After signup, go to your app (you can change this route later)
-    navigate({ to: "/qtr" })
+    navigate({ to: "/propel" })
   }
 
   return (
@@ -31,7 +31,7 @@ function SignupPage() {
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <GalleryVerticalEnd className="size-4" />
           </div>
-          Acme Inc.
+          QTR
         </a>
 
         <form

@@ -10,18 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as QtrRouteImport } from './routes/qtr'
+import { Route as PropelRouteImport } from './routes/propel'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PropelProjectsRouteImport } from './routes/propel.projects'
+import { Route as PropelDashboardRouteImport } from './routes/propel.dashboard'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
-const QtrRoute = QtrRouteImport.update({
-  id: '/qtr',
-  path: '/qtr',
+const PropelRoute = PropelRouteImport.update({
+  id: '/propel',
+  path: '/propel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -34,38 +36,73 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropelProjectsRoute = PropelProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => PropelRoute,
+} as any)
+const PropelDashboardRoute = PropelDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => PropelRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/qtr': typeof QtrRoute
+  '/propel': typeof PropelRouteWithChildren
   '/signup': typeof SignupRoute
+  '/propel/dashboard': typeof PropelDashboardRoute
+  '/propel/projects': typeof PropelProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/qtr': typeof QtrRoute
+  '/propel': typeof PropelRouteWithChildren
   '/signup': typeof SignupRoute
+  '/propel/dashboard': typeof PropelDashboardRoute
+  '/propel/projects': typeof PropelProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/qtr': typeof QtrRoute
+  '/propel': typeof PropelRouteWithChildren
   '/signup': typeof SignupRoute
+  '/propel/dashboard': typeof PropelDashboardRoute
+  '/propel/projects': typeof PropelProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/qtr' | '/signup'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/propel'
+    | '/signup'
+    | '/propel/dashboard'
+    | '/propel/projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/qtr' | '/signup'
-  id: '__root__' | '/' | '/login' | '/qtr' | '/signup'
+  to:
+    | '/'
+    | '/login'
+    | '/propel'
+    | '/signup'
+    | '/propel/dashboard'
+    | '/propel/projects'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/propel'
+    | '/signup'
+    | '/propel/dashboard'
+    | '/propel/projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
-  QtrRoute: typeof QtrRoute
+  PropelRoute: typeof PropelRouteWithChildren
   SignupRoute: typeof SignupRoute
 }
 
@@ -78,11 +115,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/qtr': {
-      id: '/qtr'
-      path: '/qtr'
-      fullPath: '/qtr'
-      preLoaderRoute: typeof QtrRouteImport
+    '/propel': {
+      id: '/propel'
+      path: '/propel'
+      fullPath: '/propel'
+      preLoaderRoute: typeof PropelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -99,13 +136,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/propel/projects': {
+      id: '/propel/projects'
+      path: '/projects'
+      fullPath: '/propel/projects'
+      preLoaderRoute: typeof PropelProjectsRouteImport
+      parentRoute: typeof PropelRoute
+    }
+    '/propel/dashboard': {
+      id: '/propel/dashboard'
+      path: '/dashboard'
+      fullPath: '/propel/dashboard'
+      preLoaderRoute: typeof PropelDashboardRouteImport
+      parentRoute: typeof PropelRoute
+    }
   }
 }
+
+interface PropelRouteChildren {
+  PropelDashboardRoute: typeof PropelDashboardRoute
+  PropelProjectsRoute: typeof PropelProjectsRoute
+}
+
+const PropelRouteChildren: PropelRouteChildren = {
+  PropelDashboardRoute: PropelDashboardRoute,
+  PropelProjectsRoute: PropelProjectsRoute,
+}
+
+const PropelRouteWithChildren =
+  PropelRoute._addFileChildren(PropelRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
-  QtrRoute: QtrRoute,
+  PropelRoute: PropelRouteWithChildren,
   SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport

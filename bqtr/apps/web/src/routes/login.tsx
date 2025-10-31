@@ -17,12 +17,12 @@ export default function LoginPage() {
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <GalleryVerticalEnd className="size-4" />
           </div>
-          Acme Inc.
+          QTR
         </a>
 
         <LoginForm
           onSwitchToSignUp={() => navigate({ to: "/signup" })} // go to signup
-          onLoginSuccess={() => navigate({ to: "/qtr" })} // go to main app
+          onLoginSuccess={() => navigate({ to: "/propel" })} // go to main app
         />
       </div>
     </div>
